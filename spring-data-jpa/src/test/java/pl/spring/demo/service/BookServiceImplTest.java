@@ -36,7 +36,7 @@ public class BookServiceImplTest {
         // then
         assertNotNull(allBooks);
         assertFalse(allBooks.isEmpty());
-        assertEquals(6, allBooks.size());
+        assertEquals(8, allBooks.size());
     }
 
     @Test
@@ -60,5 +60,29 @@ public class BookServiceImplTest {
         bookService.saveBook(bookToSave);
         // then
         fail("test should throw BookNotNullIdException");
+    }
+    
+    @Test
+    public void testShouldSetIdAutomatically(){
+    	// given
+    	final BookTo bookToSave = new BookTo();
+    	bookToSave.setId(null);
+    	//when
+    	bookService.saveBook(bookToSave);
+    	//then
+    	Long longObject = new Long(7L);
+    	assertEquals(longObject,bookToSave.getId());
+    }
+    
+    @Test
+    public void testShouldSetSecondBookIdAutomatically(){
+    	// given
+    	final BookTo bookToSave = new BookTo();
+    	bookToSave.setId(null);
+    	//when
+    	bookService.saveBook(bookToSave);
+    	//then
+    	Long longObject = new Long(8L);
+    	assertEquals(longObject,bookToSave.getId());
     }
 }
