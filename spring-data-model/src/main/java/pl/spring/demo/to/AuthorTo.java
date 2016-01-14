@@ -1,4 +1,4 @@
-package pl.spring.demo.author;
+package pl.spring.demo.to;
 
 public class AuthorTo {
     private Long id;
@@ -34,7 +34,7 @@ public class AuthorTo {
         return lastName;
     }
 
-    public void setAuthors(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 }

@@ -2,14 +2,12 @@ package pl.spring.demo.entity;
 
 import java.util.List;
 
-import pl.spring.demo.author.AuthorTo;
+import pl.spring.demo.to.AuthorTo;
 
 public class BookEntity{
     private Long id;
     private String title;
-    private Long authorId;
-    private String firstName;
-    private String lastName;
+    private List<AuthorTo> authors;
 
     public BookEntity() {
     }
@@ -17,6 +15,7 @@ public class BookEntity{
     public BookEntity(Long id, String title, List<AuthorTo> authors) {
         this.id = id;
         this.title = title;
+        this.authors = authors;
     }
 
     public Long getId() {
@@ -35,11 +34,11 @@ public class BookEntity{
         this.title = title;
     }
 
-//    public String getAuthorId() {
-//        return authorId;
-//    }
-
-//    public void setAuthors(String authors) {
-//        this.authors = authors;
-//    }
+    public List<AuthorTo> getAuthors() {
+        return authors;
+    }
+    
+    public void setAuthors(List<AuthorTo> authors) {
+    	this.authors = authors;
+    }
 }
