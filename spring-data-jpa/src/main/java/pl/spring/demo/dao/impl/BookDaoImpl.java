@@ -15,40 +15,74 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookDaoImpl implements BookDao {
 
-    private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
-    
-    public BookDaoImpl() {
-        addTestBooks();
-    }
+	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
 
-    @Override
-    public List<BookEntity> findAll() {
-        return new ArrayList<>(ALL_BOOKS);
-    }
+	public BookDaoImpl() {
+		addTestBooks();
+	}
 
-    @Override
-    public List<BookEntity> findBookByTitle(String title) {
-        return null;
-    }
+	@Override
+	public List<BookEntity> findAll() {
+		return new ArrayList<>(ALL_BOOKS);
+	}
 
-    @Override
-    public List<BookEntity> findBooksByAuthor(String author) {
-        return null;
-    }
+	@Override
+	public List<BookEntity> findBookByTitle(String title) {
 
-    @Override
-    @NullableId
-    public BookEntity save(BookEntity book) {
-        ALL_BOOKS.add(book);
-        return book;
-    }
+		List<BookEntity> books = new ArrayList<BookEntity>();
 
-    private void addTestBooks() {
-        ALL_BOOKS.add(new BookEntity(1L, "Romeo i Julia", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Wiliam", "Szekspir")))));
-        ALL_BOOKS.add(new BookEntity(2L, "Opium w rosole", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Hanna", "Ożogowska")))));
-        ALL_BOOKS.add(new BookEntity(3L, "Przygody Odyseusza", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Jan", "Parandowski")))));
-        ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Edmund", "Niziurski")))));
-        ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Zbigniew", "Nienacki")))));
-        ALL_BOOKS.add(new BookEntity(6L, "Zemsta", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Aleksander", "Fredro")))));
-    }
+		for (BookEntity BookEntity : ALL_BOOKS) {
+			if (BookEntity.getTitle() != null
+					&& (BookEntity.getTitle() == title.toLowerCase() || BookEntity.getTitle().startsWith(title))) {
+				books.add(BookEntity);
+			}
+		}
+
+		return books;
+	}
+
+	@Override
+	public List<BookEntity> findBooksByAuthor(String author) {
+
+		List<BookEntity> books = new ArrayList<BookEntity>();
+		String authorfirstName = author.toLowerCase().split(" ")[0];
+		String authorLastName = author.toLowerCase().split(" ")[1];
+
+		for (BookEntity BookEntity : ALL_BOOKS) {
+			for (AuthorTo authorTo : BookEntity.getAuthors()) {
+				String firstName = authorTo.getFirstName();
+				String lastName = authorTo.getLastName();
+				if (firstName != null && lastName != null) {
+					if ((firstName.toLowerCase().startsWith(authorfirstName)
+							&& lastName.toLowerCase().startsWith(authorLastName))) {
+						books.add(BookEntity);
+					}
+				}
+			}
+		}
+
+		return books;
+	}
+
+	@Override
+	@NullableId
+	public BookEntity save(BookEntity book) {
+		ALL_BOOKS.add(book);
+		return book;
+	}
+
+	private void addTestBooks() {
+		ALL_BOOKS.add(new BookEntity(1L, "Romeo i Julia",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Wiliam", "Szekspir")))));
+		ALL_BOOKS.add(new BookEntity(2L, "Opium w rosole",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Hanna", "Ożogowska")))));
+		ALL_BOOKS.add(new BookEntity(3L, "Przygody Odyseusza",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Jan", "Parandowski")))));
+		ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Edmund", "Niziurski")))));
+		ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Zbigniew", "Nienacki")))));
+		ALL_BOOKS.add(new BookEntity(6L, "Zemsta",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Aleksander", "Fredro")))));
+	}
 }
