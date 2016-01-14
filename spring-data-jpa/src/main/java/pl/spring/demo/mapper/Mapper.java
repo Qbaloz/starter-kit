@@ -23,7 +23,7 @@ public class Mapper {
 		bookEntity.setTitle(book.getTitle());
 		
 		authorFullName = book.getAuthors();
-		if (authorFullName.contains(" ")) {
+		if (authorFullName != null && authorFullName.contains(" ")) {
 			firstName = authorFullName.substring(0, authorFullName.indexOf(" "));
 			lastName = authorFullName.substring(authorFullName.indexOf(" "), authorFullName.length());
 		}
@@ -50,6 +50,34 @@ public class Mapper {
 		bookTo.setAuthors(authorTo.getFirstName() + " " + authorTo.getLastName()); 
 		
 		return bookTo;
+	}
+	
+	public List<BookTo> bookEntityList2BookToList(List<BookEntity> bookEntity){
+		List<BookTo> bookTo = new ArrayList<BookTo>();
+		
+		for (int i = 0; i < bookEntity.size(); i++) {
+			bookTo.add(0, null);
+		}
+		
+    	for(int i = 0; i < bookEntity.size(); i++){
+    		bookTo.set(i, bookEntity2BookTo(bookEntity.get(i)));
+    	}
+		
+		return bookTo;
+	}
+	
+	public List<BookEntity> bookToList2BookEntityList(List<BookTo> bookTo){
+		List<BookEntity> bookEntity = new ArrayList<>();
+		
+		for (int i = 0; i < bookTo.size(); i++) {
+			bookEntity.add(0, null);
+		}
+		
+    	for(int i = 0; i < bookTo.size(); i++){
+    		bookEntity.set(i, bookTo2BookEntity(bookTo.get(i)));
+    	}
+		
+		return bookEntity;
 	}
 
 }

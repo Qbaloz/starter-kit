@@ -3,8 +3,7 @@ package pl.spring.demo.mapper;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,13 +66,7 @@ public class MapperTest {
 	public void testShouldMapBookEntity2BookToAndCheckAuthor() {
 		//given
 		BookTo bookTo = new BookTo();
-		AuthorTo authorTo = new AuthorTo();
-		authorTo.setId(null);
-		authorTo.setFirstName("Jan");
-		authorTo.setLastName("Kowalski");
-		List<AuthorTo> authors = new ArrayList<AuthorTo>();
-		authors.add(authorTo);
-		BookEntity bookEntity = new BookEntity(1L, "Bob Budowniczy", authors);
+		BookEntity bookEntity = new BookEntity(1L, "Romeo i Julia", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Wiliam", "Szekspir"))));
 		String firstName = bookEntity.getAuthors().get(0).getFirstName();
 		String lastName = bookEntity.getAuthors().get(0).getLastName();
 		String bookEntityAuthor = firstName + " " + lastName;
@@ -87,13 +80,7 @@ public class MapperTest {
 	public void testShouldMapBookEntity2BookToAndCheckId() {
 		//given
 		BookTo bookTo = new BookTo();
-		AuthorTo authorTo = new AuthorTo();
-		authorTo.setId(null);
-		authorTo.setFirstName("Jan");
-		authorTo.setLastName("Kowalski");
-		List<AuthorTo> authors = new ArrayList<AuthorTo>();
-		authors.add(authorTo);
-		BookEntity bookEntity = new BookEntity(1L, "Bob Budowniczy", authors);
+		BookEntity bookEntity = new BookEntity(1L, "Romeo i Julia", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Wiliam", "Szekspir"))));
 		//when
 		bookTo = mapper.bookEntity2BookTo(bookEntity);
 		//then
@@ -104,13 +91,18 @@ public class MapperTest {
 	public void testShouldMapBookEntity2BookToAndCheckTitle() {
 		//given
 		BookTo bookTo = new BookTo();
-		AuthorTo authorTo = new AuthorTo();
-		authorTo.setId(null);
-		authorTo.setFirstName("Jan");
-		authorTo.setLastName("Kowalski");
-		List<AuthorTo> authors = new ArrayList<AuthorTo>();
-		authors.add(authorTo);
-		BookEntity bookEntity = new BookEntity(1L, "Bob Budowniczy", authors);
+		BookEntity bookEntity = new BookEntity(1L, "Romeo i Julia", new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6L, "Wiliam", "Szekspir"))));
+		//when
+		bookTo = mapper.bookEntity2BookTo(bookEntity);
+		//then
+		assertEquals(bookTo.getTitle(),bookEntity.getTitle());
+	}
+	
+	@Test
+	public void testShouldMapBookEntity2BookToWithOneParameter() {
+		//given
+		BookTo bookTo = new BookTo();
+		BookEntity bookEntity = new BookEntity(6L, null, new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(null, null, null))));
 		//when
 		bookTo = mapper.bookEntity2BookTo(bookEntity);
 		//then

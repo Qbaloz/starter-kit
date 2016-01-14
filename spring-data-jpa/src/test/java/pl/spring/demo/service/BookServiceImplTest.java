@@ -68,10 +68,10 @@ public class BookServiceImplTest {
     	final BookTo bookToSave = new BookTo();
     	bookToSave.setId(null);
     	//when
-    	bookService.saveBook(bookToSave);
+    	BookTo bookAfterSave = bookService.saveBook(bookToSave);
     	//then
     	Long longObject = new Long(7L);
-    	assertEquals(longObject,bookToSave.getId());
+    	assertEquals(longObject,bookAfterSave.getId());
     }
     
     @Test
@@ -80,9 +80,9 @@ public class BookServiceImplTest {
     	final BookTo bookToSave = new BookTo();
     	bookToSave.setId(null);
     	//when
-    	bookService.saveBook(bookToSave);
+    	BookTo bookAfterSave = bookService.saveBook(bookToSave);
     	//then
     	Long longObject = new Long(8L);
-    	assertEquals(longObject,bookToSave.getId());
+    	assertEquals(longObject,bookAfterSave.getId());
     }
 }

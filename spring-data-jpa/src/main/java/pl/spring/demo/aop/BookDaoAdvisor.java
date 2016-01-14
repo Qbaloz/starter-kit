@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
+import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
-import pl.spring.demo.to.BookTo;
-import pl.spring.demo.to.IdAware;
 
 @Aspect
 @Component
@@ -25,17 +24,18 @@ public class BookDaoAdvisor {
     	this.sequence = sequence;
     }
 	
-	@Before("@annotation(pl.spring.demo.annotation.NullableId) && args(idAware,..)")
-	private void checkNotNullId(IdAware idAware){
-		if(idAware.getId() != null){
+	@Before("@annotation(pl.spring.demo.annotation.NullableId) && args(book,..)")
+	private void checkNotNullId(BookEntity book){
+		if(book.getId() != null){
 			throw new BookNotNullIdException();
 		}
 	}
 	
 	@Before("@annotation(pl.spring.demo.annotation.NullableId) && args(book,..)")
-	private void setIdAutomatically(BookTo book){
+	private void setIdAutomatically(BookEntity book){
 		if (book.getId() == null) {
-			book.setId(sequence.nextValue(bookDao.findAll()));
+			long id = sequence.nextValue(bookDao.findAll());
+			book.setId(id);
 		}
 	}
 	
