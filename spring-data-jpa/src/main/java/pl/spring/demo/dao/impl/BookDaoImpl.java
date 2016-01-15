@@ -29,22 +29,24 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	public List<BookEntity> findBookByTitle(String title) {
 
-		List<BookEntity> books = new ArrayList<BookEntity>();
+		List<BookEntity> booksFoundByTitle = new ArrayList<BookEntity>();
 
 		for (BookEntity BookEntity : ALL_BOOKS) {
-			if (BookEntity.getTitle() != null
-					&& (BookEntity.getTitle() == title.toLowerCase() || BookEntity.getTitle().startsWith(title))) {
-				books.add(BookEntity);
+			boolean titleNotNull = BookEntity.getTitle() != null;
+			boolean titlesEquals = BookEntity.getTitle() == title.toLowerCase();
+			if (titleNotNull && (titlesEquals || BookEntity.getTitle().startsWith(title))) {
+				booksFoundByTitle.add(BookEntity);
 			}
 		}
 
-		return books;
+		return booksFoundByTitle;
 	}
 
 	@Override
 	public List<BookEntity> findBooksByAuthor(String author) {
 
-		List<BookEntity> books = new ArrayList<BookEntity>();
+		List<BookEntity> booksFoundByAuthor = new ArrayList<BookEntity>();
+
 		String authorfirstName = author.toLowerCase().split(" ")[0];
 		String authorLastName = author.toLowerCase().split(" ")[1];
 
@@ -52,16 +54,15 @@ public class BookDaoImpl implements BookDao {
 			for (AuthorTo authorTo : BookEntity.getAuthors()) {
 				String firstName = authorTo.getFirstName();
 				String lastName = authorTo.getLastName();
-				if (firstName != null && lastName != null) {
-					if ((firstName.toLowerCase().startsWith(authorfirstName)
-							&& lastName.toLowerCase().startsWith(authorLastName))) {
-						books.add(BookEntity);
-					}
+				boolean namesNotNull = firstName != null && lastName != null;
+				if (namesNotNull && (firstName.toLowerCase().startsWith(authorfirstName)
+						&& lastName.toLowerCase().startsWith(authorLastName))) {
+					booksFoundByAuthor.add(BookEntity);
 				}
 			}
 		}
 
-		return books;
+		return booksFoundByAuthor;
 	}
 
 	@Override

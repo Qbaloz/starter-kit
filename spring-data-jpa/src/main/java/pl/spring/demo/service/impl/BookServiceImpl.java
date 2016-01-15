@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.mapper.Mapper;
+import pl.spring.demo.mapper.BookMapper;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
@@ -17,10 +17,10 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     private BookDao bookDao;
-    private Mapper mapper;
+    private BookMapper mapper;
 	
     @Autowired
-	public BookServiceImpl(BookDao bookDao, Mapper mapper) {
+	public BookServiceImpl(BookDao bookDao, BookMapper mapper) {
 		this.bookDao = bookDao;
 		this.mapper = mapper;
 	}

@@ -81,7 +81,7 @@ public class BookServiceImplTest {
     @Test
     public void testShouldFindAllBooksByAuthorPrefix() {
         // given
-        final String author = "Hanna Ożo";
+        final String author = "Han Ożo";
         // when
         List<BookTo> booksByAuthor = bookService.findBooksByAuthor(author);
         // then

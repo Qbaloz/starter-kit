@@ -17,10 +17,10 @@ import pl.spring.demo.to.BookTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonServiceTest-context.xml")
-public class MapperTest {
+public class BookMapperTest {
 
 	@Autowired
-	private Mapper mapper;
+	private BookMapper mapper;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -36,7 +36,7 @@ public class MapperTest {
 		//then
 		String firstName = bookEntity.getAuthors().get(0).getFirstName();
 		String lastName = bookEntity.getAuthors().get(0).getLastName();
-		String bookEntityAuthor = firstName + lastName;
+		String bookEntityAuthor = firstName + " " + lastName;
 		assertEquals(bookTo.getAuthors(),bookEntityAuthor);
 	}
 	
