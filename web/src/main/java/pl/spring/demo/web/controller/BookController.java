@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
@@ -37,4 +39,11 @@ public class BookController {
     	bookService.deleteBook(id);
     	return "delete";
     }
+//    
+//    @RequestMapping(value = "/editbook", method = RequestMethod.POST)
+//    public void editBook(@RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("authors") String author) {
+//    	BookTo book = bookService.findBookById(id);
+//    	book.setTitle(title);
+//    	book.setAuthors(author);
+//    }
 }

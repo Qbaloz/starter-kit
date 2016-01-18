@@ -7,6 +7,7 @@ import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @ResponseBody
@@ -32,6 +33,14 @@ public class BookRestService {
     	book.setTitle(title);
     	book.setAuthors(author);
         return bookService.saveBook(book);
+    }
+    
+    @RequestMapping(value = "/editbook", method = RequestMethod.GET)
+    public BookTo editBook(@RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("authors") String author) {
+    	BookTo book = bookService.findBookById(id);
+    	book.setTitle(title);
+    	book.setAuthors(author);
+    	return bookService.saveBook(book);
     }
     
 }
