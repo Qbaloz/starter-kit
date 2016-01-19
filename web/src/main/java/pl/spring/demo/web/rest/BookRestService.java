@@ -5,42 +5,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@ResponseBody
 public class BookRestService {
 
     @Autowired
     private BookService bookService;
 
+    @ResponseBody
     @RequestMapping(value = "/books-by-title", method = RequestMethod.GET)
     public List<BookTo> findBooksByTitle(@RequestParam("titlePrefix") String titlePrefix) {
         return bookService.findBooksByTitle(titlePrefix);
     }
 
-    @RequestMapping(value = "/addbook", method = RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/books/add", method = RequestMethod.POST)
     public BookTo saveBook(@RequestBody BookTo book) {
         return bookService.saveBook(book);
     }
     
-    @RequestMapping(value = "/addbookbyparams", method = RequestMethod.POST)
-    public BookTo saveBookParam(@RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("authors") String author) {
-    	BookTo book = new BookTo();
-    	book.setId(id);
-    	book.setTitle(title);
-    	book.setAuthors(author);
-        return bookService.saveBook(book);
+    @ResponseBody
+    @RequestMapping(value = "/books/edit", method = RequestMethod.POST)
+    public BookTo editBook(@RequestBody BookTo book) {
+    	BookTo bookTo = bookService.findBookById(book.getId());
+    	bookTo.setTitle(book.getTitle());
+    	bookTo.setAuthors(book.getAuthors());
+    	return bookService.saveBook(bookTo);
     }
     
-    @RequestMapping(value = "/editbook", method = RequestMethod.GET)
-    public BookTo editBook(@RequestParam("id") Long id, @RequestParam("title") String title, @RequestParam("authors") String author) {
+    @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.POST)
+    public String deleteBook(Map<String, Object> params, @PathVariable Long id) {
     	BookTo book = bookService.findBookById(id);
-    	book.setTitle(title);
-    	book.setAuthors(author);
-    	return bookService.saveBook(book);
+    	params.put("book", book);
+    	bookService.deleteBook(id);
+    	return "delete";
     }
     
 }

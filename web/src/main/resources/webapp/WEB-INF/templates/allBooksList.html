@@ -19,7 +19,7 @@
         <td style="padding:0 15px 0 15px;" th:text="${book.authors}">Authors</td>
         <td>
         	<div align="center">
-        	<form data-th-action="@{'/delete/' + ${book.id}}" data-th-object="${books}" method = "post">
+        	<form data-th-action="@{'/books/delete/' + ${book.id}}" data-th-object="${books}" method = "post">
         		<button type="submit">Delete</button>
         	</form>
         	</div>
