@@ -2,6 +2,7 @@ package pl.spring.demo.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.spring.demo.service.BookService;
@@ -9,6 +10,8 @@ import pl.spring.demo.to.BookTo;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class BookController {
@@ -20,6 +23,14 @@ public class BookController {
         final List<BookTo> allBooks = bookService.findAllBooks();
         params.put("books", allBooks);
         return "allBooksList";
+    }
+    
+    @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.POST)
+    public String deleteBook(Map<String, Object> params, @PathVariable Long id) {
+    	BookTo book = bookService.findBookById(id);
+    	params.put("book", book);
+    	bookService.deleteBook(id);
+    	return "delete";
     }
     
 }

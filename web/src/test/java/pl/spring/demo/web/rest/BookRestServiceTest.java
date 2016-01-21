@@ -23,6 +23,8 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -78,7 +80,39 @@ public class BookRestServiceTest {
         File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToSave.json");
         String json = FileUtils.readFileToString(file);
         // when
-        ResultActions response = this.mockMvc.perform(post("/book")
+        ResultActions response = this.mockMvc.perform(post("/books")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.getBytes()));
+        // then
+        response.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void testShouldDeleteBook() throws Exception {
+        // given
+    	BookTo book = new BookTo(1L,"Title","Authors");
+    	Long id = 1L;
+    	Mockito.when(bookService.deleteBook(id)).thenReturn(book);
+        // when
+    	ResultActions response = this.mockMvc.perform(delete("/books?id=" + book.getId())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON));
+        // then
+    	response.andExpect(status().isOk())
+    	
+	        .andExpect(jsonPath("id").value(book.getId().intValue()))
+	        .andExpect(jsonPath("title").value(book.getTitle()))
+	        .andExpect(jsonPath("authors").value(book.getAuthors()));
+    }
+    
+    @Test
+    public void testShouldEditBook() throws Exception {
+        // given
+        File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToSave.json");
+        String json = FileUtils.readFileToString(file);
+        // when
+        ResultActions response = this.mockMvc.perform(put("/books")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.getBytes()));

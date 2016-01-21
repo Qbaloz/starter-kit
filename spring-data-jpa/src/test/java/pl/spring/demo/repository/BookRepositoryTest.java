@@ -42,16 +42,4 @@ public class BookRepositoryTest {
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
     }
-    
-    @Test
-    public void testShouldDeleteBook() {
-        // given
-    	final long bookId = 1;
-        // when
-    	List<BookEntity> booksEntityBeforeDelete = bookRepository.findAll();
-    	bookRepository.delete(bookId);
-    	List<BookEntity> booksEntityAfterDelete = bookRepository.findAll();
-        // then
-        assertEquals(booksEntityBeforeDelete.size(), booksEntityAfterDelete.size()  + 1);
-    }
 }

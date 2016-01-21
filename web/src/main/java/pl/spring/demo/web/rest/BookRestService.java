@@ -13,39 +13,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
+@ResponseBody
 public class BookRestService {
 
     @Autowired
     private BookService bookService;
 
-    @ResponseBody
     @RequestMapping(value = "/books-by-title", method = RequestMethod.GET)
     public List<BookTo> findBooksByTitle(@RequestParam("titlePrefix") String titlePrefix) {
         return bookService.findBooksByTitle(titlePrefix);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/books/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/books", method = RequestMethod.POST)
     public BookTo saveBook(@RequestBody BookTo book) {
         return bookService.saveBook(book);
     }
     
-    @ResponseBody
-    @RequestMapping(value = "/books/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/books", method = RequestMethod.PUT)
     public BookTo editBook(@RequestBody BookTo book) {
-    	BookTo bookTo = bookService.findBookById(book.getId());
-    	bookTo.setTitle(book.getTitle());
-    	bookTo.setAuthors(book.getAuthors());
-    	return bookService.saveBook(bookTo);
+    	return bookService.updateBook(book);
     }
     
-    @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.POST)
-    public String deleteBook(Map<String, Object> params, @PathVariable Long id) {
-    	BookTo book = bookService.findBookById(id);
-    	params.put("book", book);
-    	bookService.deleteBook(id);
-    	return "delete";
+    @RequestMapping(value = "/books", method = RequestMethod.DELETE)
+    public BookTo deleteBook(Map<String, Object> params, @RequestParam Long id) {
+    	return bookService.deleteBook(id);
+    }
+    
+    @RequestMapping(value = "/books/add_new", method = RequestMethod.POST)
+    public BookTo saveBookTwo(HttpServletRequest request) {
+    	
+    	BookTo book = new BookTo();
+    	book.setId(null);
+    	book.setTitle(request.getParameter("title"));
+    	book.setAuthors(request.getParameter("authors"));
+    	
+        return bookService.saveBook(book);
     }
     
 }
