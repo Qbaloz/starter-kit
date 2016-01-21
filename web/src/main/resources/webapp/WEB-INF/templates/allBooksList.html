@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head lang="en">
 <meta charset="UTF-8" />
-<title>Lista wszystkich książek</title>
+<title>Books List</title>
 </head>
 <body>
 	<h1>Books</h1>
@@ -27,25 +27,5 @@
 			</td>
 		</tr>
 	</table>
-
-	<p>&nbsp;</p>
-
-	<form method="post" data-th-action="@{'/books/add_new'}">
-		<table>
-			<tr>
-				<td>Title:</td>
-				<td> <input type="text" name="title" /> </td>
-			</tr>
-			<tr>
-				<td>Authors:</td>
-				<td><input type="text" name="authors" /></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="submit" onclick="myFunction()">Add book</button>
-				</td>
-			</tr>
-		</table>
-	</form>
 </body>
 </html>

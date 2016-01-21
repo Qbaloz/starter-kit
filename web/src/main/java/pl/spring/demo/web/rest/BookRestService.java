@@ -5,15 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @ResponseBody
@@ -41,16 +38,4 @@ public class BookRestService {
     public BookTo deleteBook(Map<String, Object> params, @RequestParam Long id) {
     	return bookService.deleteBook(id);
     }
-    
-    @RequestMapping(value = "/books/add_new", method = RequestMethod.POST)
-    public BookTo saveBookTwo(HttpServletRequest request) {
-    	
-    	BookTo book = new BookTo();
-    	book.setId(null);
-    	book.setTitle(request.getParameter("title"));
-    	book.setAuthors(request.getParameter("authors"));
-    	
-        return bookService.saveBook(book);
-    }
-    
 }
