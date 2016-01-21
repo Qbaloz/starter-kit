@@ -2,11 +2,18 @@
 <html xmlns:th="http://thymeleaf.org">
 <head lang="en">
 <meta charset="UTF-8" />
-<title>Books List</title>
+<title>Books</title>
+<link rel="stylesheet" th:href="@{/static/application.css}"
+	href="/static/application.css" />
 </head>
 <body>
-	<h1>Books</h1>
-	<table border="1">
+
+	<ul>
+		<li><a href="/workshop/home/">Home</a></li>
+		<li><a href="/workshop/books/">Books List</a></li>
+	</ul>
+
+	<table id="books">
 		<tr>
 			<th>Id:</th>
 			<th>Title:</th>
@@ -18,12 +25,10 @@
 			<td style="padding: 0 15px 0 15px;" th:text="${book.title}">Title</td>
 			<td style="padding: 0 15px 0 15px;" th:text="${book.authors}">Authors</td>
 			<td>
-				<div align="center">
-					<form data-th-action="@{'/books/delete/' + ${book.id}}"
-						data-th-object="${books}" method="post">
-						<button type="submit">Delete</button>
-					</form>
-				</div>
+				<form data-th-action="@{'/books/delete/' + ${book.id}}"
+					data-th-object="${books}" method="post">
+					<button class="button" type="submit">Delete</button>
+				</form>
 			</td>
 		</tr>
 	</table>

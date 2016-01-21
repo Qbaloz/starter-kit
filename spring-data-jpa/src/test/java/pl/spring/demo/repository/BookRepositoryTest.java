@@ -3,8 +3,11 @@ package pl.spring.demo.repository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
 import pl.spring.demo.entity.BookEntity;
 
 import java.util.List;
@@ -41,5 +44,18 @@ public class BookRepositoryTest {
         assertNotNull(booksEntity);
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
+    }
+    
+    @Transactional(readOnly = false)
+    @Test
+    public void testShouldEditBook() {
+        // given
+    	final long bookId = 1L;
+    	final String bookTitleAfterUpdate = "Mały książę";
+        // when
+        bookRepository.update(1L, "Mały książę", "Antoine de Saint-Exupery");
+        BookEntity bookEntity = bookRepository.findOne(bookId);
+        // then
+        assertEquals(bookTitleAfterUpdate, bookEntity.getTitle());
     }
 }

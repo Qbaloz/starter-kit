@@ -34,13 +34,6 @@ public class SimpleControllerTest {
         ResultActions resultActions = mockMvc.perform(get("/home"));
         // then
         resultActions
-                .andExpect(view().name("home"))
-                .andExpect(model().attribute("booksCount", 1))
-                .andExpect(model().attribute("book", new ArgumentMatcher<Object>() {
-                    @Override
-                    public boolean matches(Object argument) {
-                        return "First Book Title".equals(((BookTo) argument).getTitle());
-                    }
-                }));
+                .andExpect(view().name("home"));
     }
 }

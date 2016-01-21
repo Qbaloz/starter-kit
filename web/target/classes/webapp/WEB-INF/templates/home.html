@@ -2,10 +2,16 @@
 <html xmlns:th="http://thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8" />
-    <title>Pierwsza strona</title>
+    <title>Home page</title>
     <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 </head>
 <body>
-    <p class="sample" th:inline="text">[[${book.title}]]</p>
+	<ul>
+		<li><a href="/workshop/home/">Home</a></li>
+		<li><a class="active" href="/workshop/books/">Books List</a></li>
+	</ul>
+	
+	<p class="startText" th:inline="text">Welcome to books service webpage.</p>
+	
 </body>
 </html>
