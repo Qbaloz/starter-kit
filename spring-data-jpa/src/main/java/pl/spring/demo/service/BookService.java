@@ -13,5 +13,4 @@ public interface BookService {
 
     BookTo saveBook(BookTo book);
     BookTo deleteBook(Long id);
-	BookTo updateBook(BookTo book);
 }

@@ -45,17 +45,4 @@ public class BookRepositoryTest {
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
     }
-    
-    @Transactional(readOnly = false)
-    @Test
-    public void testShouldEditBook() {
-        // given
-    	final long bookId = 1L;
-    	final String bookTitleAfterUpdate = "Mały książę";
-        // when
-        bookRepository.update(1L, "Mały książę", "Antoine de Saint-Exupery");
-        BookEntity bookEntity = bookRepository.findOne(bookId);
-        // then
-        assertEquals(bookTitleAfterUpdate, bookEntity.getTitle());
-    }
 }
