@@ -8,20 +8,23 @@ import java.util.Set;
 @Entity
 @Table(name = "BOOK")
 public class BookEntity implements Serializable {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, length = 50)
     private String title;
+    @ManyToOne
+    private LibraryEntity library;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false)}
     )
     private Set<AuthorEntity> authors = new HashSet<>();
 
-    // for hibernate
+	// for hibernate
     protected BookEntity() {
     }
 
@@ -53,4 +56,12 @@ public class BookEntity implements Serializable {
     public void setAuthors(Set<AuthorEntity> authors) {
         this.authors = authors;
     }
+
+	public LibraryEntity getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(LibraryEntity library) {
+		this.library = library;
+	}
 }

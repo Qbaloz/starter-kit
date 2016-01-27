@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,11 +23,7 @@ public class LibraryEntity {
 	@Column(nullable = false, length = 50)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinTable(name = "LIBRARY_BOOKID",
-            joinColumns = {@JoinColumn(name = "LIBRARY_ID", nullable = false, updatable = true)},
-            inverseJoinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = true)}
-    )
+	@OneToMany(mappedBy = "library", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<BookEntity> books = new HashSet<>();
 
 	// for hibernate
