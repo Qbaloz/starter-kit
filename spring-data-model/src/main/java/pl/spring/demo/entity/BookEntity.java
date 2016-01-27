@@ -23,7 +23,7 @@ public class BookEntity implements Serializable {
 
     // for hibernate
     protected BookEntity() {
-}
+    }
 
     public BookEntity(Long id, String title) {
         this.id = id;
