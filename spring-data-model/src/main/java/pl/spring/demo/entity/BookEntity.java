@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "BOOK")
 public class BookEntity implements Serializable {
 	
-    @Id
+	private static final long serialVersionUID = 2482208051127010631L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, length = 50)
@@ -17,7 +18,7 @@ public class BookEntity implements Serializable {
     @ManyToOne
     private LibraryEntity library;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false)}

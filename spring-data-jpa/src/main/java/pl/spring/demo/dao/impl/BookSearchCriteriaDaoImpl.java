@@ -1,36 +1,40 @@
 package pl.spring.demo.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mysema.query.jpa.JPQLQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
 
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import pl.spring.demo.dao.BookSearchCriteriaDao;
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.repository.BookRepository;
+import pl.spring.demo.entity.QAuthorEntity;
+import pl.spring.demo.entity.QBookEntity;
 import pl.spring.demo.service.impl.BookSearchCriteria;
 
 public class BookSearchCriteriaDaoImpl extends AbstractDao<BookEntity, Long> implements BookSearchCriteriaDao {
 
 	@Override
 	public List<BookEntity> findBook(BookSearchCriteria bookSearchCriteria) {
+
+		QBookEntity bookEntity = QBookEntity.bookEntity;
+		QAuthorEntity authorEntity = QAuthorEntity.authorEntity;
+
+		JPQLQuery query = new JPAQuery(entityManager);
+		List<BookEntity> books = new ArrayList<BookEntity>();
+
 		String title = bookSearchCriteria.getTitle();
 		String author = bookSearchCriteria.getAuthor();
 		String libraryName = bookSearchCriteria.getLibraryName();
-
-		TypedQuery<BookEntity> query = null;
-
+		
 		if (title == null && author == null && libraryName == null) {
-			query = entityManager.createQuery("select book from BookEntity book", BookEntity.class);
+			books = query.from(bookEntity).listResults(bookEntity).getResults();
 		}
 
 		if (title != null && author == null && libraryName == null) {
-			query = entityManager.createQuery(
-					"select book from BookEntity book where upper(book.title) like concat(upper(:title), '%')",
-					BookEntity.class);
-			query.setParameter("title", title);
+			books = query.from(bookEntity).where(bookEntity.title.startsWith(title)).listResults(bookEntity)
+					.getResults();
 		}
 
 		if (title == null && author != null && libraryName == null) {
@@ -38,18 +42,15 @@ public class BookSearchCriteriaDaoImpl extends AbstractDao<BookEntity, Long> imp
 			String firstName = split[0];
 			String lastName = split[1];
 
-			query = entityManager.createQuery(
-					"select book from BookEntity book JOIN book.authors author where upper(author.firstName) like concat('%', upper(:firstName), '%') or upper(author.lastName) like concat('%', upper(:lastName), '%')",
-					BookEntity.class);
-			query.setParameter("firstName", firstName);
-			query.setParameter("lastName", lastName);
+			books = query.from(bookEntity).join(bookEntity.authors, authorEntity)
+					.where(authorEntity.firstName.startsWith(firstName), authorEntity.lastName.startsWith(lastName))
+					.listResults(bookEntity).getResults();
 		}
 
 		if (title == null && author == null && libraryName != null) {
-			query = entityManager.createQuery(
-					"select book from BookEntity book where upper(book.library.name) like concat(upper(:libraryName), '%')",
-					BookEntity.class);
-			query.setParameter("libraryName", libraryName);
+
+			books = query.from(bookEntity).where(bookEntity.library.name.startsWith(libraryName))
+					.listResults(bookEntity).getResults();
 		}
 
 		if (title != null && author != null && libraryName == null) {
@@ -57,20 +58,17 @@ public class BookSearchCriteriaDaoImpl extends AbstractDao<BookEntity, Long> imp
 			String firstName = split[0];
 			String lastName = split[1];
 
-			query = entityManager.createQuery(
-					"select book from BookEntity book JOIN book.authors author where upper(book.title) like concat(upper(:title), '%') and (upper(author.firstName) like concat('%', upper(:firstName), '%') or upper(author.lastName) like concat('%', upper(:lastName), '%'))",
-					BookEntity.class);
-			query.setParameter("title", title);
-			query.setParameter("firstName", firstName);
-			query.setParameter("lastName", lastName);
+			books = query.from(bookEntity)
+					.join(bookEntity.authors, authorEntity).where(bookEntity.title.startsWith(title),
+							authorEntity.firstName.startsWith(firstName), authorEntity.lastName.startsWith(lastName))
+					.listResults(bookEntity).getResults();
 		}
 
 		if (title != null && author == null && libraryName != null) {
-			query = entityManager.createQuery(
-					"select book from BookEntity book where upper(book.title) like concat(upper(:title), '%') and upper(book.library.name) like concat(upper(:libraryName), '%')",
-					BookEntity.class);
-			query.setParameter("title", title);
-			query.setParameter("libraryName", libraryName);
+
+			books = query.from(bookEntity)
+					.where(bookEntity.title.startsWith(title), bookEntity.library.name.startsWith(libraryName))
+					.listResults(bookEntity).getResults();
 		}
 
 		if (title == null && author != null && libraryName != null) {
@@ -78,12 +76,10 @@ public class BookSearchCriteriaDaoImpl extends AbstractDao<BookEntity, Long> imp
 			String firstName = split[0];
 			String lastName = split[1];
 
-			query = entityManager.createQuery(
-					"select book from BookEntity book JOIN book.authors author where (upper(author.firstName) like concat('%', upper(:firstName), '%') or upper(author.lastName) like concat('%', upper(:lastName), '%')) and upper(book.library.name) like concat(upper(:libraryName), '%')",
-					BookEntity.class);
-			query.setParameter("firstName", firstName);
-			query.setParameter("lastName", lastName);
-			query.setParameter("libraryName", libraryName);
+			books = query.from(bookEntity)
+					.join(bookEntity.authors, authorEntity).where(authorEntity.firstName.startsWith(firstName),
+							authorEntity.lastName.startsWith(lastName), bookEntity.library.name.startsWith(libraryName))
+					.listResults(bookEntity).getResults();
 		}
 
 		if (title != null && author != null && libraryName != null) {
@@ -91,17 +87,13 @@ public class BookSearchCriteriaDaoImpl extends AbstractDao<BookEntity, Long> imp
 			String firstName = split[0];
 			String lastName = split[1];
 
-			query = entityManager.createQuery(
-					"select book from BookEntity book JOIN book.authors author where (upper(author.firstName) like concat('%', upper(:firstName), '%') or upper(author.lastName) like concat('%', upper(:lastName), '%')) and upper(book.title) like concat(upper(:title), '%') and upper(book.library.name) like concat(upper(:libraryName), '%')",
-					BookEntity.class);
-			query.setParameter("title", title);
-			query.setParameter("firstName", firstName);
-			query.setParameter("lastName", lastName);
-			query.setParameter("libraryName", libraryName);
-
+			books = query.from(bookEntity).join(bookEntity.authors, authorEntity)
+					.where(bookEntity.title.startsWith(title), authorEntity.firstName.startsWith(firstName),
+							authorEntity.lastName.startsWith(lastName), bookEntity.library.name.startsWith(libraryName))
+					.listResults(bookEntity).getResults();
 		}
 
-		return query.getResultList();
+		return books;
 	}
 
 }
