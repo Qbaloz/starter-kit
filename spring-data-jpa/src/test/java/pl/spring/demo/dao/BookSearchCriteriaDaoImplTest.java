@@ -31,7 +31,7 @@ public class BookSearchCriteriaDaoImplTest {
         // then
         assertNotNull(booksEntity);
         assertFalse(booksEntity.isEmpty());
-        assertEquals(2, booksEntity.size());
+        assertEquals(4, booksEntity.size());
 	}
 	
 	@Test

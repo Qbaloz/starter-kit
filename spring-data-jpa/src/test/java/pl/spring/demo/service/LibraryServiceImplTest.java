@@ -4,18 +4,22 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import pl.spring.demo.entity.LibraryEntity;
 import pl.spring.demo.to.BookTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonServiceTest-context.xml")
+@TransactionConfiguration(defaultRollback = true) 
 public class LibraryServiceImplTest {
 
 	@Autowired
@@ -39,6 +43,7 @@ public class LibraryServiceImplTest {
 	}
 	
 	@Test
+	@Transactional
 	public void testShouldDeleteLibraryAndAllBooksInLibrary(){
 		// given
 		long libraryId = 2L;
