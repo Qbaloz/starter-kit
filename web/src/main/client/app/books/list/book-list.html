@@ -6,8 +6,8 @@
 
     <p>Podaj tytuł książki:</p>
     <input type="text" ng-model="prefix">
-    <button ng-click="search()">Szukaj</button>
-    <button ng-click="addBook()">Dodaj książkę</button>
+    <button class="btn btn-default" ng-click="search()">Szukaj</button>
+    <button class="btn btn-default" ng-click="addBook()">Dodaj książkę</button>
 
     <table>
         <tr>
@@ -17,9 +17,11 @@
         </tr>
         <tr ng-repeat="book in books">
             <td>{{ book.title }}</td>
-            <td>{{ book.authors }}</td>
+              <td>
+                <span ng-repeat="author in book.authors"> {{ author.firstName }} {{ author.lastName }}; </span>
+              </td>
             <td>
-                <button ng-click="deleteBook(book.id)">Usuń</button>
+                <button class="btn btn-warning" ng-click="deleteBook(book.id)">Usuń</button>
             </td>
         </tr>
     </table>

@@ -1,10 +1,15 @@
 <div>
     <form novalidate>
         <div class="modal-header">
-            <h3 class="modal-title">Sample</h3>
+            <h3 class="modal-title">Dodaj nową książkę:</h3>
         </div>
         <div class="modal-body">
-            <p>TEST</p>
+            <label>Tytuł:</label>
+            <input type="text" ng-model="title" class="ng-pristine ng-valid ng-touched">
+            <label>Autor:</label>
+            <input type="text" ng-model="authors" class="ng-pristine ng-valid ng-touched">
+            <p></p>
+            <button class="btn btn-default" ng-click="saveBook()">Dodaj</button>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Close</button>
