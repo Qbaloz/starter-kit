@@ -2,26 +2,34 @@ package pl.spring.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "BOOK")
 public class BookEntity implements Serializable {
-    @Id
+	
+	private static final long serialVersionUID = 2482208051127010631L;
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, length = 50)
     private String title;
-    @Column(nullable = false, length = 200)
-    private String authors;
 
-    // for hibernate
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "BOOK_AUTHOR",
+            joinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false)}
+    )
+    private Set<AuthorEntity> authors = new HashSet<>();
+
+	// for hibernate
     protected BookEntity() {
-}
+    }
 
-    public BookEntity(Long id, String title, String authors) {
+    public BookEntity(Long id, String title) {
         this.id = id;
         this.title = title;
-        this.authors = authors;
     }
 
     public Long getId() {
@@ -40,11 +48,11 @@ public class BookEntity implements Serializable {
         this.title = title;
     }
 
-    public String getAuthors() {
+    public Set<AuthorEntity> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String authors) {
+    public void setAuthors(Set<AuthorEntity> authors) {
         this.authors = authors;
     }
 }
