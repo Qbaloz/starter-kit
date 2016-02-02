@@ -1,18 +1,23 @@
 <div>
-    <form novalidate>
+    <form name="addBookForm">
         <div class="modal-header">
             <h3 class="modal-title">Dodaj nową książkę:</h3>
         </div>
         <div class="modal-body">
             <label>Tytuł:</label>
-            <input type="text" ng-model="title" class="ng-pristine ng-valid ng-touched">
-            <label>Autor:</label>
-            <input type="text" ng-model="authors" class="ng-pristine ng-valid ng-touched">
+            <input type="text" ng-model="book.title" class="ng-pristine ng-valid ng-touched" required />
+            <label>Imie autora:</label>
+            <input type="text" ng-model="book.authors[0].firstName" class="ng-pristine ng-valid ng-touched" required />
+            <label>Nazwisko autora:</label>
+            <input type="text" ng-model="book.authors[0].lastName" class="ng-pristine ng-valid ng-touched" required />
             <p></p>
-            <button class="btn btn-default" ng-click="saveBook()">Dodaj</button>
+            <button class="btn btn-default" ng-disabled="addBookForm.$invalid" ng-click="addAuthor()">Dodaj autora</button>
+            <p></p>
+            <button class="btn btn-default" ng-disabled="addBookForm.$invalid" ng-click="saveBook()">Dodaj</button>   
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Close</button>
         </div>
+        {{ book | json }}
     </form>
 </div>

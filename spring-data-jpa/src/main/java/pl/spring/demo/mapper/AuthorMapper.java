@@ -23,12 +23,12 @@ public class AuthorMapper {
         return null;
     }
 
-    public static Set<AuthorTo> map2To(Set<AuthorEntity> authorEntities) {
-        return authorEntities.stream().map(AuthorMapper::map).collect(Collectors.toSet());
+    public static List<AuthorTo> map2To(Set<AuthorEntity> authorEntities) {
+        return authorEntities.stream().map(AuthorMapper::map).collect(Collectors.toList());
     }
 
-    public static Set<AuthorEntity> map2Entity(Set<AuthorTo> authorEntities) {
-        return authorEntities.stream().map(AuthorMapper::map).collect(Collectors.toSet());
+    public static Set<AuthorEntity> map2Entity(List<AuthorTo> list) {
+        return list.stream().map(AuthorMapper::map).collect(Collectors.toSet());
     }
 	
 }

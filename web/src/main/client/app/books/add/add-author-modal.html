@@ -1,0 +1,19 @@
+<div>
+    <form name="addAuthorForm">
+        <div class="modal-header">
+            <h3 class="modal-title">Dodaj nowego autora:</h3>
+        </div>
+        <div class="modal-body">
+            <label>Imie autora:</label>
+            <input type="text" ng-model="author.firstName" class="ng-pristine ng-valid ng-touched" required />
+            <label>Nazwisko autora:</label>
+            <input type="text" ng-model="author.lastName" class="ng-pristine ng-valid ng-touched" required /> 
+            <p></p>
+            <button class="btn btn-default" ng-disabled="addAuthorForm.$invalid" ng-click="addAuthor()">Dodaj autora</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="$dismiss()">Close</button>
+        </div>
+        {{ author | json }}
+    </form>
+</div>
