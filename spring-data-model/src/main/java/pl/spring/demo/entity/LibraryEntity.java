@@ -23,7 +23,7 @@ public class LibraryEntity {
 	@Column(nullable = false, length = 50)
 	private String name;
 	
-	@OneToMany(mappedBy = "library", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "library", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<BookEntity> books = new HashSet<>();
 
 	// for hibernate
