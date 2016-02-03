@@ -14,6 +14,7 @@
             <th>Tytuł</th>
             <th>Autorzy</th>
             <th>Usuń</th>
+            <th>Edytuj tytuł</th>
         </tr>
         <tr ng-repeat="book in books">
             <td>{{ book.title }}</td>
@@ -22,6 +23,9 @@
               </td>
             <td>
                 <button class="btn btn-warning" ng-click="deleteBook(book.id)">Usuń</button>
+            </td>
+            <td>
+                <button class="btn btn-warning" ng-click="editBook(book)">Edytuj tytuł</button>
             </td>
         </tr>
     </table>

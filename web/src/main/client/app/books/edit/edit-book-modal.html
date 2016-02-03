@@ -1,0 +1,16 @@
+<div>
+    <form name="addBookForm">
+        <div class="modal-header">
+            <h3 class="modal-title">Edytuj tytuł książki:</h3>
+        </div>
+        <div class="modal-body">
+            <label>Nowy tytuł:</label>
+            <input type="text" ng-model="book.title" class="ng-pristine ng-valid ng-touched" required />
+            <button class="btn btn-default" ng-disabled="addBookForm.$invalid" ng-click="saveBook()">Edytuj</button> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="$dismiss()">Close</button>
+        </div>
+        {{ book | json }}
+    </form>
+</div>
