@@ -13,12 +13,16 @@ angular.module('app.books').controller('BookModalController', function ($scope, 
         });
     };
     
-    $scope.addAuthor = function () {
-        $modal.open({
+    $scope.addAuthor = function (author) {
+    	var modalInstance = $modal.open({
             templateUrl: 'books/add/add-author-modal.html',
             controller: 'AuthorModalController',
-            size: 'lg'
+            size: 'lg',
         });
+    	
+    	modalInstance.result.then(function(author){
+        	$scope.book.authors.push(author);
+       });
     };
     
 });

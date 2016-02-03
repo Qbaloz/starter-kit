@@ -1,10 +1,11 @@
-angular.module('app.books').controller('AuthorModalController', function ($scope, bookService, Flash) {
+angular.module('app.books').controller('AuthorModalController', function ($scope, bookService, Flash, $modalInstance) {
     'use strict';
 
-    $scope.author = {id: null, firstName: '', lastName: ''};
+    $scope.author = {firstName: '', lastName: ''};
     
     $scope.addAuthor = function () {
     	console.log ($scope.author);
+    	$modalInstance.close($scope.author);
     };
     
 });
