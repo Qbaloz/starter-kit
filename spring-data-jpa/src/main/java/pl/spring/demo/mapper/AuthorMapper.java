@@ -1,5 +1,6 @@
 package pl.spring.demo.mapper;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class AuthorMapper {
         return null;
     }
 
-    public static List<AuthorTo> map2To(Set<AuthorEntity> authorEntities) {
+    public static List<AuthorTo> map2To(Collection<AuthorEntity> authorEntities) {
         return authorEntities.stream().map(AuthorMapper::map).collect(Collectors.toList());
     }
 
