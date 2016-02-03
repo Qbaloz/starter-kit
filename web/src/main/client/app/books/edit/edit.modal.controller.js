@@ -2,10 +2,8 @@ angular.module('app.books').controller('EditModalController', function ($scope, 
     'use strict';
     
     $scope.saveBook = function () {
-    	console.log (book);
-    	book.title = $scope.book.title;
-    	console.log (book);
-    	bookService.saveBook(book).then(function () {
+        book.title = $scope.book.title;
+        bookService.saveBook(book).then(function () {
             Flash.create('success', 'Książka została edytowana.', 'custom-class');
         });
     };

@@ -1,4 +1,4 @@
-angular.module('app.books').controller('BookModalController', function ($scope, bookService, Flash, $modal, $window, $location) {
+angular.module('app.books').controller('BookModalController', function ($scope, bookService, Flash, $modal) {
     'use strict';
 
     $scope.book = {id: null, title: ''};
@@ -6,22 +6,19 @@ angular.module('app.books').controller('BookModalController', function ($scope, 
     $scope.prefix = '';
     
     $scope.saveBook = function () {
-    	console.log ($scope.book);
-    	console.log ($scope.book.authors);
-    	bookService.saveBook($scope.book).then(function () {
+        bookService.saveBook($scope.book).then(function () {
             Flash.create('success', 'Książka została dodana.', 'custom-class');
         });
     };
     
-    $scope.addAuthor = function (author) {
-    	var modalInstance = $modal.open({
+    $scope.addAuthor = function () {
+        var modalInstance = $modal.open({
             templateUrl: 'books/add/add-author-modal.html',
             controller: 'AuthorModalController',
-            size: 'lg',
+            size: 'lg'
         });
-    	
-    	modalInstance.result.then(function(author){
-        	$scope.book.authors.push(author);
+        modalInstance.result.then(function(author){
+            $scope.book.authors.push(author);
        });
     };
     

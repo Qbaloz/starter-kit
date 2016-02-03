@@ -4,8 +4,7 @@ angular.module('app.books').controller('AuthorModalController', function ($scope
     $scope.author = {firstName: '', lastName: ''};
     
     $scope.addAuthor = function () {
-    	console.log ($scope.author);
-    	$modalInstance.close($scope.author);
+        $modalInstance.close($scope.author);
     };
     
 });

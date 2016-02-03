@@ -38,15 +38,14 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     };
     
     $scope.editBook = function (book) {
-    	console.log (book);
-    	var modalInstance = $modal.open({
+        $modal.open({
             templateUrl: 'books/edit/edit-book-modal.html',
             controller: 'EditModalController',
             size: 'lg',
             resolve: {
-            	book: function () {
+                book: function () {
                       return book;
-            	}
+                }
             }
         });
     };
