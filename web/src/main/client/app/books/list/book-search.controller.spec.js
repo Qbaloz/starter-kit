@@ -35,4 +35,19 @@ describe('book controller', function () {
         expect(Flash.create).toHaveBeenCalledWith('success', 'Książka została usunięta.', 'custom-class');
         expect($scope.books.length).toBe(0);
     }));
+
+    it('search book should call bookService.findBooksByTitle', inject(function ($controller, $q, bookService) {
+    	// given
+    	$controller('BookSearchController', {$scope: $scope});
+
+    	var prefix = 'Pierwsza';
+        var searchDeferred = $q.defer();
+        spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
+        // when
+        bookService.search(prefix);
+        searchDeferred.resolve();
+        $scope.$digest();
+        //then
+        expect(bookService.search).toHaveBeenCalledWith(prefix);
+    }));
 });
