@@ -17,6 +17,42 @@ describe('book controller', function () {
         expect($scope.search).toBeDefined();
     }));
 
+    it('deleteBook is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.deleteBook).toBeDefined();
+    }));
+
+    it('addBook is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.addBook).toBeDefined();
+    }));
+
+    it('editBook is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.editBook).toBeDefined();
+    }));
+
+    it('search book should call bookService.findBooksByTitle', inject(function ($controller, $q, bookService) {
+    	// given
+    	$controller('BookSearchController', {$scope: $scope});
+
+    	var prefix = 'Pierwsza';
+        var searchDeferred = $q.defer();
+        spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
+        // when
+        bookService.search(prefix);
+        searchDeferred.resolve();
+        $scope.$digest();
+        //then
+        expect(bookService.search).toHaveBeenCalledWith(prefix);
+    }));
+
     it('delete book should call bookService.deleteBook', inject(function ($controller, $q, bookService, Flash) {
         // given
         $controller('BookSearchController', {$scope: $scope});
@@ -35,19 +71,19 @@ describe('book controller', function () {
         expect(Flash.create).toHaveBeenCalledWith('success', 'Książka została usunięta.', 'custom-class');
         expect($scope.books.length).toBe(0);
     }));
-
-    it('search book should call bookService.findBooksByTitle', inject(function ($controller, $q, bookService) {
-    	// given
+    
+    it('addBook should open modal', inject(function ($controller, $modal) {
     	$controller('BookSearchController', {$scope: $scope});
-
-    	var prefix = 'Pierwsza';
-        var searchDeferred = $q.defer();
-        spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
-        // when
-        bookService.search(prefix);
-        searchDeferred.resolve();
-        $scope.$digest();
-        //then
-        expect(bookService.search).toHaveBeenCalledWith(prefix);
+    	spyOn($modal, 'open');
+        $scope.addBook();
+        expect($modal.open).toHaveBeenCalled();
     }));
+    
+    it('editBook should open modal', inject(function ($controller, $modal) {
+    	$controller('BookSearchController', {$scope: $scope});
+    	spyOn($modal, 'open');
+        $scope.editBook();
+        expect($modal.open).toHaveBeenCalled();
+    }));
+    
 });
