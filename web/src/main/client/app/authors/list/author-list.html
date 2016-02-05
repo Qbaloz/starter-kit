@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
 <body>
-<section>
-    <div flash-message="5000" ></div>
+	<section>
+		<div flash-message="5000"></div>
 
-    <p></p>
-    <p>Znajdź autora:</p>
-    <input ng-model="query" />
-    <button class="btn btn-default" ng-click="search()">Szukaj</button>
+		<p></p>
+		<p>Znajdź autora:</p>
+		<input ng-model="query" />
+		<button class="btn btn-default" ng-click="search()">Szukaj</button>
 
-    <table>
-        <tr>
-            <th>Imie</th>
-            <th>Nazwisko</th>
-        </tr>
-        <tr ng-repeat="author in authors | filter:query">
-            <td>{{ author.firstName }}</td>
-            <td>{{ author.lastName }}</td>
-        </tr>
-    </table>
-</section>
+		<div class="authorsTable">
+			<table>
+				<tr>
+					<th>Imie</th>
+					<th>Nazwisko</th>
+				</tr>
+				<tr ng-repeat="author in authors | filter:query">
+					<td>{{ author.firstName }}</td>
+					<td>{{ author.lastName }}</td>
+				</tr>
+			</table>
+		</div>
+	</section>
 </body>
 </html>

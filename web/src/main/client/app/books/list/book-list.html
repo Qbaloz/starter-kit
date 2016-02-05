@@ -9,7 +9,8 @@
     <input type="text" ng-model="prefix">
     <button class="btn btn-default" ng-click="search()">Szukaj</button>
     <button class="btn btn-default" ng-click="addBook()">Dodaj książkę</button>
-
+    <p></p>
+    <div class="booksTable">
     <table>
         <tr>
             <th>Tytuł</th>
@@ -23,15 +24,16 @@
                 <span ng-repeat="author in book.authors"> {{ author.firstName }} {{ author.lastName }}; </span>
               </td>
             <td>
-                <button class="btn btn-warning" ng-click="deleteBook(book.id)">Usuń</button>
+                <button class="btn btn-danger" ng-click="deleteBook(book.id)">Usuń</button>
             </td>
             <td>
                 <div class="editbutton">
-                    <button class="btn btn-warning" ng-click="editBook(book)">Edytuj</button>
+                    <button class="btn btn-primary" ng-click="editBook(book)">Edytuj</button>
                 </div>
             </td>
         </tr>
     </table>
+</div>
 </section>
 </body>
 </html>
