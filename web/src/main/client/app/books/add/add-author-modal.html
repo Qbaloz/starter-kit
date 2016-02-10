@@ -9,7 +9,7 @@
             <label>Nazwisko autora:</label>
             <input type="text" ng-model="author.lastName" class="ng-pristine ng-valid ng-touched" required /> 
             <p></p>
-            <button class="btn btn-default" ng-disabled="addAuthorForm.$invalid" ng-click="addAuthor()">Dodaj autora</button>
+            <button name = "addNewAuthor" class="btn btn-default" ng-disabled="addAuthorForm.$invalid" ng-click="addAuthor()">Dodaj autora</button>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Close</button>
