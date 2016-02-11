@@ -1,5 +1,8 @@
 C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\service\BookService.java
 C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\service\impl\BookServiceImpl.java
+C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\repository\AuthorRepository.java
+C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\service\AuthorService.java
 C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\mapper\AuthorMapper.java
 C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\repository\BookRepository.java
 C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\mapper\BookMapper.java
+C:\workspace\starter-kit\spring-data-jpa\src\main\java\pl\spring\demo\service\impl\AuthorServiceImpl.java

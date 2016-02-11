@@ -1,2 +1,17 @@
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\NewBookFormValidationSeleniumTest.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\SeleniumScreenshotJUnit4Runner.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\AbstractPageObject.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\NewAuthorPage.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\NewAuthorFormValidationSeleniumTest.java
 C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\rest\BookRestServiceTest.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\HomePageSeleniumTest.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\EditBookFormSeleniumTest.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\NewBookFormAddingBooksSeleniumTest.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\AbstractSelenium.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\AuthorsPage.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\NewBookPage.java
 C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\utils\FileUtils.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\EditBookPage.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\HomePage.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\pages\BooksPage.java
+C:\workspace\starter-kit\web\src\test\java\pl\spring\demo\web\selenium\test\AuthorsPageSearchAuthorByPrefix.java
