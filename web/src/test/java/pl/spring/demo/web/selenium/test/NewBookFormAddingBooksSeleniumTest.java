@@ -46,5 +46,20 @@ public class NewBookFormAddingBooksSeleniumTest extends AbstractSelenium {
 		// then
 		assertTrue(newBookPage.getSaveBookButton().isEnabled());
 	}
+	
+	@Test
+	public void shouldAddNewBookWithTwoAuthors() {
+		// given
+		newBookPage.setTitle("title");
+		newBookPage.setFirstName("firstName");
+		newBookPage.setLastName("lastName");
+		// when
+		newAuthorPage = newBookPage.clickAddAuthor();
+		newAuthorPage.setFirstName("firstName");
+		newAuthorPage.setLastName("lastName");
+		newAuthorPage.clickAddNewAuthor();
+		// then
+		assertTrue(newBookPage.getSaveBookButton().isEnabled());
+	}
 
 }
